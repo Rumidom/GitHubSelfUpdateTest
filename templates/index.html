@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Popup Demo</title>
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+    </style>
+    <script>
+        function showPopup() {
+            var overlay = document.querySelector('.overlay');
+            var popup = document.querySelector('.popup');
+            overlay.style.display = 'flex';
+            popup.style.display = 'block';
+        }
+
+        function hidePopup() {
+            var overlay = document.querySelector('.overlay');
+            var popup = document.querySelector('.popup');
+            overlay.style.display = 'none';
+            popup.style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    <button onclick="showPopup()">Show Popup</button>
+
+    <div class="overlay">
+        <div class="popup">
+            <h2>Popup Message</h2>
+            <button onclick="hidePopup()">Cancel</button>
+            <a href="{{ url_for('update') }}"><button>Update</button></a>
+        </div>
+    </div>
+</body>
+</html>
