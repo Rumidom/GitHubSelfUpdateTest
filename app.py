@@ -5,14 +5,14 @@ import os
 app = Flask(__name__)
 repo = git.Repo(os.path.dirname(os.path.abspath(__file__)))
 
+
 @app.route('/')
 def index():
 	repo.remotes.origin.fetch()
-	current = repo.head.commit
-	latest_commit = repo.remotes.origin.refs[repo.head.ref.remote_head].commit
-	if current != latest_commit:
-		print("new update available")
-
+	local_head = repo.head.commit
+	remote_head = repo.remotes.origin.refs.master.commit
+	if local_head != remote_head:
+		print("Update Found")
 	return render_template('index.html')
 
 @app.route('/update')
