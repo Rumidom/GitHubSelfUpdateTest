@@ -16,7 +16,7 @@ def index():
 def update():
 	repo = git.Repo('/')
 	repo.remotes.origin.pull()
-    return "This is the update page."
+    return "This is the update page. updated"
 
 
 if __name__ == '__main__':
