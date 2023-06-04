@@ -9,7 +9,7 @@ repo = git.Repo(os.path.dirname(os.path.abspath(__file__)))
 def index():
 	repo.remotes.origin.fetch()
 	current = repo.head.commit
-	latest_commit = repo.remotes.origin.refs['HEAD'].commit
+	latest_commit = repo.remotes.origin.refs[repo.head.ref.remote_head].commit
 	if current != latest_commit:
 		print("new update available")
 
@@ -17,9 +17,11 @@ def index():
 
 @app.route('/update')
 def update():
-	
+	# Stash local changes
+	repo.git.stash()
+	repo.remotes.origin.fetch()
 	repo.remotes.origin.pull(force=True)
-	return "This is the update page. Updated"
+	return "This is the update page."
 
 
 if __name__ == '__main__':
